@@ -1,4 +1,5 @@
-import { GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLNonNull, GraphQLList } from "graphql";
+import { GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLNonNull } from "graphql";
+import { connectionDefinitions, connectionArgs, connectionFromArray } from "graphql-relay";
 import { profileType } from "./profileType";
 import { postType } from "./postType";
 
@@ -10,8 +11,12 @@ export const userType = new GraphQLObjectType({
     profile: { type: new GraphQLNonNull(profileType) },
     posts: { 
       type: new GraphQLNonNull(
-        new GraphQLList(postType)
-      )
+        connectionDefinitions({ nodeType: postType }).connectionType,
+      ),
+      args: connectionArgs,
+      resolve: (source, args, _ctx) => {
+        return connectionFromArray(source.posts, args)
+      }
     },
   }
 });
