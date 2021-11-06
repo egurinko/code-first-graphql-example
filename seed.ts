@@ -1,23 +1,23 @@
-export type User = {
+export type UserModel = {
   id: number;
   email: string;
-  profile: Profile;
-  posts: Post[];
+  profile: ProfileModel;
+  posts: PostModel[];
 }
 
-export type Profile = {
+export type ProfileModel = {
   id: number;
   firstName: string;
   lastName: string;
 }
 
-export type Post = {
+export type PostModel = {
   id: number;
   title: string;
   detail: string;
 }
 
-const user1: User = {
+const user1: UserModel = {
   id: 1,
   email: "user1@example.com",
   profile: {
@@ -40,7 +40,7 @@ const user1: User = {
 }
 
 
-const user2: User = {
+const user2: UserModel = {
   id: 2,
   email: "user2@example.com",
   profile: {
@@ -62,4 +62,4 @@ const user2: User = {
   ]
 }
 
-export const usersSeed: User[] = [user1, user2];
+export const usersSeed: UserModel[] = [user1, user2];
