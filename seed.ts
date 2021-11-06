@@ -2,7 +2,7 @@ export type UserModel = {
   id: number;
   email: string;
   profile: ProfileModel;
-  posts: PostModel[];
+  posts: PostsModel;
 }
 
 export type ProfileModel = {
@@ -10,6 +10,8 @@ export type ProfileModel = {
   firstName: string;
   lastName: string;
 }
+
+export type PostsModel = PostModel[];
 
 export type PostModel = {
   id: number;
