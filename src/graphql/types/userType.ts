@@ -2,8 +2,10 @@ import { GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLNonNull } from "gr
 import { connectionDefinitions, connectionArgs, connectionFromArray } from "graphql-relay";
 import { profileType } from "./profileType";
 import { postType } from "./postType";
+import { ResolversParentTypes, ResolversTypes, UserPostsArgs } from "../generatedTypes";
+import { Context } from "../context";
 
-export const userType = new GraphQLObjectType({
+export const userType: GraphQLObjectType<ResolversParentTypes["User"], Context> = new GraphQLObjectType({
   name: "User",
   fields: {
     id: { type: new GraphQLNonNull(GraphQLInt) },
@@ -14,7 +16,7 @@ export const userType = new GraphQLObjectType({
         connectionDefinitions({ nodeType: postType }).connectionType,
       ),
       args: connectionArgs,
-      resolve: (source, args, _ctx) => {
+      resolve: (source, args: UserPostsArgs, _ctx): ResolversTypes["PostConnection"] => {
         return connectionFromArray(source.posts, args)
       }
     },
